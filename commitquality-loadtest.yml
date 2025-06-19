@@ -1,0 +1,50 @@
+config:
+  target: "https://commitquality.com"
+  phases:
+    - name: "Warm up"
+      duration: 30
+      arrivalRate: 5
+    - name: "Ramp up load"
+      duration: 60
+      arrivalRate: 10
+      rampTo: 30
+    - name: "High load"
+      duration: 120
+      arrivalRate: 30
+    - name: "Peak load"
+      duration: 60
+      arrivalRate: 50
+  defaults:
+    headers:
+      user-agent: "Artillery Load Test"
+      accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+      content-type: "application/x-www-form-urlencoded"
+      origin: "https://commitquality.com"
+      referer: "https://commitquality.com"
+
+scenarios:
+  - name: "Login and Add Product Flow"
+    flow:
+      # Login flow
+      - get:
+          url: "/login"
+      - post:
+          url: "/login"
+          body: "username=test&password=test"
+
+      # Add product flow
+      - think: 2
+      - get:
+          url: "/add-product"
+      - post:
+          url: "/add-product"
+          body: "name=test%20adat&price=123&dateStocked=2025-06-19"
+
+      # View products
+      - think: 1
+      - get:
+          url: "/products"
+
+      # Logout
+      - get:
+          url: "/logout"

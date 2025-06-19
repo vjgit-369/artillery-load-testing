@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Artillery Test Results</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .metric-card { 
+            border: 1px solid #ddd; 
+            padding: 15px; 
+            margin: 10px 0; 
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .phase-card {
+            border-left: 4px solid #4CAF50;
+            margin: 15px 0;
+            padding: 10px;
+        }
+        .error { color: #ff0000; }
+        .success { color: #4CAF50; }
+        .chart { margin: 20px 0; }
+        h2 { color: #333; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th { background-color: #f2f2f2; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Artillery Load Test Report</h1>
+        <div class="metric-card">
+            <h2>Test Summary</h2>
+            <table>
+                <tr>
+                    <th>Metric</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>Total Requests</td>
+                    <td>47,445</td>
+                </tr>
+                <tr>
+                    <td>Successful Responses</td>
+                    <td class="success">47,394</td>
+                </tr>
+                <tr>
+                    <td>Failed Requests</td>
+                    <td class="error">51</td>
+                </tr>
+                <tr>
+                    <td>Success Rate</td>
+                    <td>99.89%</td>
+                </tr>
+                <tr>
+                    <td>Average Request Rate</td>
+                    <td>183 req/sec</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="metric-card">
+            <h2>Response Times</h2>
+            <table>
+                <tr>
+                    <th>Percentile</th>
+                    <th>Response Time</th>
+                </tr>
+                <tr>
+                    <td>Minimum</td>
+                    <td>15 ms</td>
+                </tr>
+                <tr>
+                    <td>Median (P50)</td>
+                    <td>73 ms</td>
+                </tr>
+                <tr>
+                    <td>95th Percentile</td>
+                    <td>247.2 ms</td>
+                </tr>
+                <tr>
+                    <td>99th Percentile</td>
+                    <td>632.8 ms</td>
+                </tr>
+                <tr>
+                    <td>Maximum</td>
+                    <td class="error">6,704 ms</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="metric-card">
+            <h2>Virtual Users</h2>
+            <table>
+                <tr>
+                    <th>Metric</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>Total Created</td>
+                    <td>7,950</td>
+                </tr>
+                <tr>
+                    <td>Completed</td>
+                    <td>7,899</td>
+                </tr>
+                <tr>
+                    <td>Failed</td>
+                    <td class="error">51</td>
+                </tr>
+                <tr>
+                    <td>Success Rate</td>
+                    <td>99.36%</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="metric-card">
+            <h2>Test Phases</h2>
+            <div class="phase-card">
+                <h3>Warm up Phase (0-30s)</h3>
+                <p>Duration: 30 seconds</p>
+                <p>Arrival Rate: 5 users/second</p>
+                <p>Performance: Stable, No errors</p>
+            </div>
+            <div class="phase-card">
+                <h3>Ramp up Phase (30-90s)</h3>
+                <p>Duration: 60 seconds</p>
+                <p>Arrival Rate: 10-30 users/second</p>
+                <p>Performance: Gradual increase handled well</p>
+            </div>
+            <div class="phase-card">
+                <h3>High Load Phase (90-210s)</h3>
+                <p>Duration: 120 seconds</p>
+                <p>Arrival Rate: 30 users/second</p>
+                <p>Performance: Consistent, Very few timeouts</p>
+            </div>
+            <div class="phase-card">
+                <h3>Peak Load Phase (210-270s)</h3>
+                <p>Duration: 60 seconds</p>
+                <p>Arrival Rate: 50 users/second</p>
+                <p>Performance: Some stress, Most timeouts occurred here</p>
+            </div>
+        </div>
+
+        <div class="metric-card">
+            <h2>Session Duration</h2>
+            <table>
+                <tr>
+                    <th>Metric</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>Minimum</td>
+                    <td>3,401 ms</td>
+                </tr>
+                <tr>
+                    <td>Median</td>
+                    <td>3,678 ms</td>
+                </tr>
+                <tr>
+                    <td>95th Percentile</td>
+                    <td>4,676 ms</td>
+                </tr>
+                <tr>
+                    <td>99th Percentile</td>
+                    <td>8,520 ms</td>
+                </tr>
+                <tr>
+                    <td>Maximum</td>
+                    <td class="error">12,227 ms</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="metric-card">
+            <h2>Key Findings</h2>
+            <h3>Strong Points</h3>
+            <ul>
+                <li>High success rate (99.89% of requests successful)</li>
+                <li>Consistent performance under normal load</li>
+                <li>Quick recovery from peak stress</li>
+                <li>Low median response time (73ms)</li>
+            </ul>
+
+            <h3>Areas of Attention</h3>
+            <ul>
+                <li>51 timeout errors during peak load</li>
+                <li>Response time spikes during peak load</li>
+                <li>Some sessions exceeded 8 seconds during peak load</li>
+            </ul>
+
+            <h3>Recommendations</h3>
+            <ul>
+                <li>Consider implementing caching for frequently accessed resources</li>
+                <li>Optimize database queries for high-load scenarios</li>
+                <li>Consider implementing rate limiting for peak loads</li>
+                <li>Monitor server resources during peak loads</li>
+                <li>Set up alerts for response times exceeding 1 second</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

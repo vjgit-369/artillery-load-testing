@@ -1,0 +1,25 @@
+{
+  "name": "artillery",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "artillery run commitquality-loadtest.yml",
+    "test:output": "artillery run --output result.json commitquality-loadtest.yml",
+    "report": "artillery report result.json",
+    "playwright": "playwright test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.53.1",
+    "artillery": "^2.0.0-38",
+    "artillery-plugin-expect": "^2.4.1",
+    "artillery-plugin-form-data": "^2.1.0"
+  }
+}
