@@ -48,6 +48,35 @@ npm test
 npm run test:output
 ```
 
+## Running with Docker
+
+You can run the load test in a Docker container for easy setup and isolation.
+
+### Build the Docker image
+```bash
+docker build -t artillery-loadtest .
+```
+
+### Run the load test in a container
+```bash
+docker run --rm artillery-loadtest
+```
+
+### Save results to your host machine
+To save the Artillery output (e.g., result.json) to your local machine, mount a volume:
+
+**On Windows (PowerShell):**
+```bash
+docker run --rm -v ${PWD}/test-results:/app/test-results artillery-loadtest npx artillery run --output test-results/result.json commitquality-loadtest.yml
+```
+
+**On Linux/Mac:**
+```bash
+docker run --rm -v $(pwd)/test-results:/app/test-results artillery-loadtest npx artillery run --output test-results/result.json commitquality-loadtest.yml
+```
+
+This will place the results in the `test-results` folder on your host.
+
 ## Latest Test Results
 
 Check `artillery-html-report.html` for detailed test results and analysis.
